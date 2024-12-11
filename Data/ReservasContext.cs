@@ -10,5 +10,13 @@ namespace Restaurante
         }
 
         public DbSet<Restaurante.Models.Reserva> Reservas { get; set; } = default!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Configurar o nome da tabela em letras minúsculas
+            modelBuilder.Entity<Restaurante.Models.Reserva>().ToTable("reservas");
+        }
     }
 }

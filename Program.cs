@@ -14,16 +14,40 @@ builder.Services.AddDbContext<ReservasContext>(options =>
         new MySqlServerVersion(new Version(8, 0, 32)) // Altere para a versão correta do MySQL instalado
     ));
 
-// Add services to the container.
+// Registrar os serviços necessários
+builder.Services.AddScoped<ReservaService>();
+builder.Services.AddScoped<SeedingService>();
+
+// Configurar MVC
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Executar o SeedingService no ambiente de desenvolvimento
+if (app.Environment.IsDevelopment())
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+
+        try
+        {
+            var seedingService = services.GetRequiredService<SeedingService>();
+            await seedingService.Seed(); // Aguarde o método Seed
+            Console.WriteLine("Seeding concluído com sucesso.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao executar o seeding: {ex.Message}");
+        }
+    }
+}
+
+// Configurar o pipeline HTTP
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 dias. Você pode alterar para produção, veja https://aka.ms/aspnetcore-hsts.
+    // O valor padrão de HSTS é 30 dias. Você pode alterar para produção, veja https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -39,19 +63,3 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-
-builder.Services.AddScoped<ReservaService>();
-
-builder.Services.AddScoped<SeedingService>();
-
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-else
-{
-    // Criamos um escopo de execução nos serviços, usamos o GetRequiredService para selecionar o serviço a ser executado e selecionamos o método Seed().
-    app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedingService>().Seed();
-}
