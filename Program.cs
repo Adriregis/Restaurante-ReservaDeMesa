@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Restaurante;
 using Restaurante.Service;
+using Restaurante.Service.Sedding;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,3 +42,16 @@ app.Run();
 
 builder.Services.AddScoped<ReservaService>();
 
+builder.Services.AddScoped<SeedingService>();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+else
+{
+    // Criamos um escopo de execução nos serviços, usamos o GetRequiredService para selecionar o serviço a ser executado e selecionamos o método Seed().
+    app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedingService>().Seed();
+}
