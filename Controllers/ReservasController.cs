@@ -13,14 +13,11 @@ namespace Restaurante.Controllers
             _context = context;
         }
 
-        // GET: Reservas
         public IActionResult Index()
         {
             var reservas = _context.Reservas.ToList();
             return View(reservas);
         }
-
-        // GET: Reservas/Details/5
         public IActionResult Details(int? id)
         {
             if (id == null || _context.Reservas == null)
@@ -36,14 +33,11 @@ namespace Restaurante.Controllers
 
             return View(reserva);
         }
-
-        // GET: Reservas/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Reservas/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("NomeCliente,TelefoneCliente,NumeroPessoas,DataReserva")] Reserva reserva)
@@ -56,8 +50,6 @@ namespace Restaurante.Controllers
             }
             return View(reserva);
         }
-
-        // GET: Reservas/Edit/5
         public IActionResult Edit(int? id)
         {
             if (id == null || _context.Reservas == null)
@@ -72,8 +64,6 @@ namespace Restaurante.Controllers
             }
             return View(reserva);
         }
-
-        // POST: Reservas/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Id,NomeCliente,TelefoneCliente,NumeroPessoas,DataReserva")] Reserva reserva)
@@ -105,8 +95,6 @@ namespace Restaurante.Controllers
             }
             return View(reserva);
         }
-
-        // GET: Reservas/Delete/5
         public IActionResult Delete(int? id)
         {
             if (id == null || _context.Reservas == null)
@@ -122,8 +110,6 @@ namespace Restaurante.Controllers
 
             return View(reserva);
         }
-
-        // POST: Reservas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)

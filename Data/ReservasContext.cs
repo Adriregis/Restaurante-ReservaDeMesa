@@ -15,7 +15,6 @@ namespace Restaurante
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configurar o nome da tabela em letras minúsculas
             modelBuilder.Entity<Restaurante.Models.Reserva>().ToTable("reservas");
         }
     }

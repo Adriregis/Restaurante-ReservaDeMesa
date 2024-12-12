@@ -11,15 +11,12 @@ namespace Restaurante.Service.Sedding
         {
             _context = context;
         }
-
-
-
         public async Task Seed()
         {
             if (_context.Reservas.Any()
                )
             {
-                return; // Db já foi semeado.
+                return; 
             }
 
             Reserva r1 = new Reserva(1, "João Silva", "11987654321", 4, new DateTime(2023, 12, 25, 19, 0, 0));
@@ -42,10 +39,6 @@ namespace Restaurante.Service.Sedding
             Reserva r18 = new Reserva(18, "Amanda Vieira", "11987654310", 5, new DateTime(2025, 5, 18, 19, 30, 0));
             Reserva r19 = new Reserva(19, "Renata Albuquerque", "21965432109", 3, new DateTime(2025, 6, 15, 16, 0, 0));
             Reserva r20 = new Reserva(20, "Bruno Araújo", "31965498721", 2, new DateTime(2025, 7, 20, 13, 30, 0));
-
-
-
-
 
             await _context.Reservas.AddRangeAsync(r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20
         );
