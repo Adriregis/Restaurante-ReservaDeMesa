@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurante;
 
@@ -11,9 +12,11 @@ using Restaurante;
 namespace Restaurante.Migrations
 {
     [DbContext(typeof(ReservasContext))]
-    partial class ReservasContextModelSnapshot : ModelSnapshot
+    [Migration("20241210033826_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +24,6 @@ namespace Restaurante.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
-
 
             modelBuilder.Entity("Restaurante.Models.Reserva", b =>
                 {
@@ -38,14 +40,12 @@ namespace Restaurante.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-
                     b.Property<int>("NumeroPessoas")
                         .HasColumnType("int");
 
                     b.Property<string>("TelefoneCliente")
                         .IsRequired()
                         .HasColumnType("longtext");
-
 
                     b.HasKey("Id");
 
