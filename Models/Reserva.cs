@@ -1,4 +1,4 @@
-﻿namespace Restaurante.Models
+namespace Restaurante.Models
 {
     public class Reserva
     {
@@ -22,3 +22,4 @@
         }
     }
 }
+
