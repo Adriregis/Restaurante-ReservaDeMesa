@@ -21,6 +21,7 @@ namespace Restaurante.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+
             modelBuilder.Entity("Restaurante.Models.Reserva", b =>
                 {
                     b.Property<int>("Id")
@@ -36,12 +37,14 @@ namespace Restaurante.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+
                     b.Property<int>("NumeroPessoas")
                         .HasColumnType("int");
 
                     b.Property<string>("TelefoneCliente")
                         .IsRequired()
                         .HasColumnType("longtext");
+
 
                     b.HasKey("Id");
 
