@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurante;
 
@@ -11,17 +12,18 @@ using Restaurante;
 namespace Restaurante.Migrations
 {
     [DbContext(typeof(ReservasContext))]
-    partial class ReservasContextModelSnapshot : ModelSnapshot
+    [Migration("20241209191232_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.11")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
-
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Restaurante.Models.Reserva", b =>
                 {
@@ -29,23 +31,21 @@ namespace Restaurante.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DataReserva")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("NomeCliente")
+                    b.Property<string>("NomeCiente")
                         .IsRequired()
-                        .HasColumnType("longtext");
-
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NumeroPessoas")
                         .HasColumnType("int");
 
                     b.Property<string>("TelefoneCliente")
                         .IsRequired()
-                        .HasColumnType("longtext");
-
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

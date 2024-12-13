@@ -5,6 +5,7 @@ namespace Restaurante
     public class ReservasContext : DbContext
     {
         public ReservasContext(DbContextOptions<ReservasContext> options)
+
             : base(options)
         {
         }
@@ -19,3 +20,4 @@ namespace Restaurante
         }
     }
 }
+

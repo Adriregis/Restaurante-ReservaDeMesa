@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
+
 using Restaurante.Models;
 
 namespace Restaurante.Controllers
@@ -13,6 +15,7 @@ namespace Restaurante.Controllers
             _context = context;
         }
 
+
         public IActionResult Index()
         {
             var reservas = _context.Reservas.ToList();
@@ -21,18 +24,22 @@ namespace Restaurante.Controllers
         public IActionResult Details(int? id)
         {
             if (id == null || _context.Reservas == null)
+
             {
                 return NotFound();
             }
 
+
             var reserva = _context.Reservas.FirstOrDefault(m => m.Id == id);
             if (reserva == null)
+
             {
                 return NotFound();
             }
 
             return View(reserva);
         }
+
         public IActionResult Create()
         {
             return View();
@@ -53,6 +60,7 @@ namespace Restaurante.Controllers
         public IActionResult Edit(int? id)
         {
             if (id == null || _context.Reservas == null)
+
             {
                 return NotFound();
             }
@@ -69,6 +77,7 @@ namespace Restaurante.Controllers
         public IActionResult Edit(int id, [Bind("Id,NomeCliente,TelefoneCliente,NumeroPessoas,DataReserva")] Reserva reserva)
         {
             if (id != reserva.Id)
+
             {
                 return NotFound();
             }
@@ -83,6 +92,7 @@ namespace Restaurante.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!_context.Reservas.Any(e => e.Id == reserva.Id))
+
                     {
                         return NotFound();
                     }
@@ -98,12 +108,14 @@ namespace Restaurante.Controllers
         public IActionResult Delete(int? id)
         {
             if (id == null || _context.Reservas == null)
+
             {
                 return NotFound();
             }
 
             var reserva = _context.Reservas.FirstOrDefault(m => m.Id == id);
             if (reserva == null)
+
             {
                 return NotFound();
             }
@@ -127,5 +139,6 @@ namespace Restaurante.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+
     }
 }
