@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -14,13 +14,14 @@ namespace Restaurante.Controllers
         {
             _context = context;
         }
-
+        
 
         public IActionResult Index()
         {
             var reservas = _context.Reservas.ToList();
             return View(reservas);
         }
+        
         public IActionResult Details(int? id)
         {
             if (id == null || _context.Reservas == null)
@@ -28,15 +29,15 @@ namespace Restaurante.Controllers
             {
                 return NotFound();
             }
-
-
             var reserva = _context.Reservas.FirstOrDefault(m => m.Id == id);
             if (reserva == null)
+            var reservas = await _context.Reservas
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (reservas == null)
 
             {
                 return NotFound();
             }
-
             return View(reserva);
         }
 
@@ -57,21 +58,21 @@ namespace Restaurante.Controllers
             }
             return View(reserva);
         }
+        
         public IActionResult Edit(int? id)
         {
             if (id == null || _context.Reservas == null)
 
             {
-                return NotFound();
+            return NotFound();
             }
-
             var reserva = _context.Reservas.Find(id);
             if (reserva == null)
             {
-                return NotFound();
+             return NotFound();
             }
             return View(reserva);
-        }
+         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Id,NomeCliente,TelefoneCliente,NumeroPessoas,DataReserva")] Reserva reserva)
@@ -112,14 +113,12 @@ namespace Restaurante.Controllers
             {
                 return NotFound();
             }
-
             var reserva = _context.Reservas.FirstOrDefault(m => m.Id == id);
             if (reserva == null)
 
             {
                 return NotFound();
             }
-
             return View(reserva);
         }
         [HttpPost, ActionName("Delete")]

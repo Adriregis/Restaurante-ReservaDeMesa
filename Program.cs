@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Restaurante;
 using Restaurante.Service;
@@ -25,42 +25,20 @@ namespace Restaurante
 
             ));
 
-
-
-
-
             builder.Services.AddScoped<ReservaService>();
 
             builder.Services.AddScoped<SeedingService>();
 
-
-
             builder.Services.AddControllersWithViews();
 
-
-
             var app = builder.Build();
-
-
-
-
-
             if (app.Environment.IsDevelopment())
-
             {
-
                 using (var scope = app.Services.CreateScope())
-
                 {
-
                     var services = scope.ServiceProvider;
-
-
-
                     try
-
                     {
-
                         var seedingService = services.GetRequiredService<SeedingService>();
 
                         await seedingService.Seed();
@@ -68,13 +46,9 @@ namespace Restaurante
                         Console.WriteLine("Seeding concluído com sucesso.");
 
                     }
-
                     catch (Exception ex)
-
                     {
-
                         Console.WriteLine($"Erro ao executar o seeding: {ex.Message}");
-
                     }
 
                 }
@@ -82,32 +56,18 @@ namespace Restaurante
             }
 
             if (!app.Environment.IsDevelopment())
-
             {
-
                 app.UseExceptionHandler("/Home/Error");
-
-
-
                 app.UseHsts();
 
             }
-
-
-
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
 
-
-
             app.UseRouting();
 
-
-
             app.UseAuthorization();
-
-
 
             app.MapControllerRoute(
 
@@ -115,8 +75,6 @@ namespace Restaurante
 
                 pattern: "{controller=Home}/{action=Index}/{id?}"
             );
-
-
 
             app.Run();
 
